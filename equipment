@@ -1,0 +1,25 @@
+@Controller
+public class Usercontroller {
+	@Autowired
+	private IUserservice iUserservice;
+	@RequestMapping("login.action")
+	public void login(HttpServletRequest request,HttpServletResponse response){
+		User user = new User();
+		user.setUname(request.getParameter("username"));
+		user.setUpwd(request.getParameter("password"));
+		try {
+			if(iUserservice.select(user)){
+				request.getRequestDispatcher("addadmin.html").forward(request, response);
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			request.getRequestDispatcher("login.html").forward(request, response);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}		
